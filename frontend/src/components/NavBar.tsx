@@ -50,6 +50,12 @@ export function NavBar() {
             >
               Our Story
             </Link>
+            <Link
+              href="/admin/causes"
+              className="px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            >
+              Admin
+            </Link>
           </nav>
         </div>
       </div>

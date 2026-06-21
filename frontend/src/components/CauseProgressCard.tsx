@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Progress } from "@/components/ui/progress"
 import { formatPence } from "@/lib/currency"
 import type { CauseProgress } from "@/lib/api"
@@ -11,7 +12,10 @@ export function CauseProgressCard({ progress }: CauseProgressCardProps) {
   const hasTarget = progress.targetPence !== null
 
   return (
-    <div className="rounded-lg border border-border bg-card p-5 shadow-sm">
+    <Link
+      href={`/causes/${progress.causeId}`}
+      className="block rounded-lg border border-border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+    >
       <div className="flex items-baseline justify-between gap-4">
         <h3 className="font-semibold text-foreground">{progress.name}</h3>
         <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
@@ -36,7 +40,7 @@ export function CauseProgressCard({ progress }: CauseProgressCardProps) {
           </div>
           <p className="mt-1.5 text-xs text-muted-foreground">
             {pct >= 100 ? (
-              <span className="text-green-700 font-medium">Target reached</span>
+              <span className="font-medium text-green-700">Target reached</span>
             ) : (
               <>{pct.toFixed(1)}% funded</>
             )}
@@ -45,6 +49,10 @@ export function CauseProgressCard({ progress }: CauseProgressCardProps) {
       ) : (
         <p className="mt-2 text-xs text-muted-foreground">No target set</p>
       )}
-    </div>
+
+      <p className="mt-4 text-xs font-medium text-primary">
+        View appeal and donate →
+      </p>
+    </Link>
   )
 }

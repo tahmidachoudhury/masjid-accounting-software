@@ -2,18 +2,43 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react"
 import { DEMO_CAUSES, DEMO_DONATIONS } from "@/lib/demoData"
-import type { Cause, Donation, DonationCreate, DonationType, ImportResult } from "@/lib/api"
+import type {
+  Cause,
+  CauseContentUpdate,
+  Donation,
+  DonationCreate,
+  DonationType,
+  ImportResult,
+} from "@/lib/api"
 
 const STORAGE_KEY = "masjid-treasury-demo-v3"
 type TreasuryContextValue = {
-  causes: Cause[]; donations: Donation[]
+  causes: Cause[]
+  donations: Donation[]
   createDonation: (data: DonationCreate) => void
   reclassifyDonation: (id: string, donationType: DonationType) => void
+  updateCauseContent: (id: string, data: CauseContentUpdate) => void
   importCannedStatement: () => ImportResult
 }
 type TreasuryData = Pick<TreasuryContextValue, "causes" | "donations">
 const TreasuryContext = createContext<TreasuryContextValue | null>(null)
 const cloneSeed = () => ({ causes: structuredClone(DEMO_CAUSES), donations: structuredClone(DEMO_DONATIONS) })
+const hydrateCause = (cause: Cause): Cause => {
+  const seed = DEMO_CAUSES.find((item) => item.id === cause.id)
+
+  return {
+    ...cause,
+    description: cause.description ?? seed?.description ?? "",
+    story: cause.story ?? seed?.story ?? "",
+    impact: cause.impact ?? seed?.impact ?? "",
+    images: cause.images ?? seed?.images ?? [],
+  }
+}
+
+const hydrateData = (data: TreasuryData): TreasuryData => ({
+  causes: data.causes.map(hydrateCause),
+  donations: data.donations,
+})
 const id = () => globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`
 
 export function TreasuryProvider({ children }: { children: ReactNode }) {
@@ -31,7 +56,7 @@ export function TreasuryProvider({ children }: { children: ReactNode }) {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved) {
       try {
-        const parsed = JSON.parse(saved) as TreasuryData
+        const parsed = hydrateData(JSON.parse(saved) as TreasuryData)
         dataRef.current = parsed
         setData(parsed)
       } catch { localStorage.removeItem(STORAGE_KEY) }
@@ -59,6 +84,13 @@ export function TreasuryProvider({ children }: { children: ReactNode }) {
       const next = { ...current, donations: current.donations.map((donation) => donation.id === donationId ? { ...donation, donationType } : donation) }
       return next
     }),
+    updateCauseContent: (causeId, content) =>
+    commit((current) => ({
+      ...current,
+      causes: current.causes.map((cause) =>
+        cause.id === causeId ? { ...cause, ...content } : cause
+      ),
+    })),
     importCannedStatement: () => {
       const rows: Array<[number, number, DonationType, string | null]> = [[2, 10_000, "zakat", "Monthly zakat payment"], [3, 5_000, "sadaqah", "Sadaqah for Ramadan"], [4, 7_500, "uncategorised", "Ramadan donation"], [5, 20_000, "uncategorised", "Anonymous transfer"], [6, 2_000, "zakat_al_fitr", "Fitrana - family of 4"], [7, 30_000, "general", "Roof appeal donation"]]
       const records = rows.map(([row, amountPence, donationType, donorRef]) => ({ row, donationId: id(), amountPence, donationType, donorRef }))

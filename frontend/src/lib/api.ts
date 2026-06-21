@@ -24,6 +24,20 @@ export interface DonationCreate {
   source?: SourceType
 }
 
+export interface CauseImage {
+  id: string
+  url: string
+  alt: string
+  caption?: string
+}
+
+export interface CauseContentUpdate {
+  description: string
+  story: string
+  impact: string
+  images: CauseImage[]
+}
+
 export interface Cause {
   id: string
   name: string
@@ -31,6 +45,10 @@ export interface Cause {
   deadline: string | null
   allowedTypes: DonationType[]
   createdAt: string
+  description?: string
+  story?: string
+  impact?: string
+  images?: CauseImage[]
 }
 
 export interface TypeBalance { donationType: DonationType; amountPence: number }
