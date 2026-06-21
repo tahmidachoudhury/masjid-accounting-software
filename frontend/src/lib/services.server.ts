@@ -1,5 +1,6 @@
 import 'server-only'
 import { randomUUID } from 'node:crypto'
+import type { SQLInputValue } from 'node:sqlite'
 import { getDb } from './db.server'
 import type {
   Donation,
@@ -115,7 +116,7 @@ export function listDonations(params?: {
 }): Donation[] {
   const db = getDb()
   const conditions: string[] = []
-  const bindings: Record<string, unknown> = {}
+  const bindings: Record<string, SQLInputValue> = {}
 
   if (params?.uncategorisedOnly) {
     conditions.push("donation_type = 'uncategorised'")

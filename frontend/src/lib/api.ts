@@ -1,5 +1,3 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
-
 // ── Domain types ────────────────────────────────────────────────────────────
 
 export type DonationType =
@@ -87,43 +85,22 @@ export interface ImportResult {
   }
 }
 
-// ── Key-case converters ─────────────────────────────────────────────────────
-
-function toCamel(s: string): string {
-  return s.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase())
-}
-
-function toSnake(s: string): string {
-  return s.replace(/[A-Z]/g, (c) => "_" + c.toLowerCase())
-}
-
-function mapKeys<T>(obj: unknown, fn: (k: string) => string): T {
-  if (Array.isArray(obj)) return obj.map((v) => mapKeys(v, fn)) as T
-  if (obj !== null && typeof obj === "object") {
-    return Object.fromEntries(
-      Object.entries(obj as Record<string, unknown>).map(([k, v]) => [fn(k), mapKeys(v, fn)])
-    ) as T
-  }
-  return obj as T
-}
-
 // ── Fetch helpers ───────────────────────────────────────────────────────────
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, { cache: "no-store", ...init })
+  const res = await fetch(`/api${path}`, { cache: "no-store", ...init })
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: res.statusText }))
-    const detail = err.detail
-    throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail))
+    const err = await res.json().catch(() => ({ error: res.statusText }))
+    throw new Error(typeof err.error === "string" ? err.error : JSON.stringify(err))
   }
-  return mapKeys<T>(await res.json(), toCamel)
+  return res.json() as Promise<T>
 }
 
 function postJSON<T>(path: string, body: unknown): Promise<T> {
   return apiFetch<T>(path, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(mapKeys(body, toSnake)),
+    body: JSON.stringify(body),
   })
 }
 
@@ -131,7 +108,7 @@ function patchJSON<T>(path: string, body: unknown): Promise<T> {
   return apiFetch<T>(path, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(mapKeys(body, toSnake)),
+    body: JSON.stringify(body),
   })
 }
 
@@ -146,9 +123,9 @@ export const api = {
     uncategorisedOnly?: boolean
   }) => {
     const q = new URLSearchParams()
-    if (params?.donationType) q.set("donation_type", params.donationType)
-    if (params?.causeId) q.set("cause_id", params.causeId)
-    if (params?.uncategorisedOnly) q.set("uncategorised_only", "true")
+    if (params?.donationType) q.set("donationType", params.donationType)
+    if (params?.causeId) q.set("causeId", params.causeId)
+    if (params?.uncategorisedOnly) q.set("uncategorisedOnly", "true")
     const qs = q.size ? "?" + q.toString() : ""
     return apiFetch<Donation[]>(`/donations${qs}`)
   },
@@ -165,11 +142,11 @@ export const api = {
   importBankStatement: async (file: File): Promise<ImportResult> => {
     const form = new FormData()
     form.append("file", file)
-    const res = await fetch(`${BASE}/import/bank-statement`, { method: "POST", body: form })
+    const res = await fetch("/api/import/bank-statement", { method: "POST", body: form })
     if (!res.ok) {
-      const err = await res.json().catch(() => ({ detail: res.statusText }))
-      throw new Error(typeof err.detail === "string" ? err.detail : JSON.stringify(err.detail))
+      const err = await res.json().catch(() => ({ error: res.statusText }))
+      throw new Error(typeof err.error === "string" ? err.error : JSON.stringify(err))
     }
-    return mapKeys<ImportResult>(await res.json(), toCamel)
+    return res.json() as Promise<ImportResult>
   },
 }

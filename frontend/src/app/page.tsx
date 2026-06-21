@@ -7,7 +7,7 @@ import { UncategorisedBanner } from "@/components/UncategorisedBanner"
 import { FundMixChart } from "@/components/charts/FundMixChart"
 import { DonationsTrendChart } from "@/components/charts/DonationsTrendChart"
 import { CauseProgressBarChart } from "@/components/charts/CauseProgressBarChart"
-import { api } from "@/lib/api"
+import { computeBalances, listCauses, listDonations, computeCauseProgress } from "@/lib/services.server"
 import { donationsToTimeSeries } from "@/lib/chartData"
 import { causeProgressToBarItems } from "@/lib/chartData"
 import { loadCumulativeData } from "@/lib/loadCumulativeData"
@@ -21,20 +21,19 @@ import {
 export default async function DashboardPage() {
   const [summary, causes, donations, uncategorised, fundTrends, cumulativePoints, madrasahIntake] =
     await Promise.all([
-      api.getBalances().catch(() => null),
-      api.getCauses().catch(() => []),
-      api.getDonations().catch(() => []),
-      api.getDonations({ uncategorisedOnly: true }).catch(() => []),
+      Promise.resolve(computeBalances()).catch(() => null),
+      Promise.resolve(listCauses()).catch(() => []),
+      Promise.resolve(listDonations()).catch(() => []),
+      Promise.resolve(listDonations({ uncategorisedOnly: true })).catch(() => []),
       loadFundTrends(),
       loadCumulativeData(),
       loadMadrasahIntake(),
     ])
 
   const causeProgress = await Promise.all(
-    causes.map((c) => api.getCauseProgress(c.id).catch(() => null))
+    causes.map((c) => Promise.resolve(computeCauseProgress(c.id)).catch(() => null))
   ).then((results) => results.filter(Boolean))
 
-  const apiDown = summary === null
   const periodLabel = fundTrends?.periodLabel ?? "since last month"
 
   const showFundChart = summary && summary.balances.some((b) => b.amountPence > 0)
@@ -67,15 +66,6 @@ export default async function DashboardPage() {
           })}
         </p>
       </div>
-
-      {apiDown && (
-        <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
-          Backend API is unreachable. Start it with{" "}
-          <code className="font-mono text-xs bg-destructive/20 px-1 rounded">
-            cd backend && uvicorn app.main:app --reload
-          </code>
-        </div>
-      )}
 
       <UncategorisedBanner count={uncategorised.length} />
 
@@ -148,18 +138,6 @@ export default async function DashboardPage() {
           )}
         </section>
       )}
-
-      {/* {causeProgress.length > 0 && (
-        <section>
-          <h2 className="text-lg font-semibold text-foreground">Cause Progress</h2>
-          <Separator className="mt-2 mb-4" />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {causeProgress.map(
-              (p) => p && <CauseProgressCard key={p.causeId} progress={p} />
-            )}
-          </div>
-        </section>
-      )} */}
 
       <section>
         <div className="flex items-baseline justify-between">
