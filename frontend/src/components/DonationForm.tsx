@@ -12,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { api, type Cause, type DonationType } from "@/lib/api"
+import { type Cause, type DonationType } from "@/lib/api"
+import { useTreasury } from "@/lib/demoStore"
 import { FUND_CONFIG, CLASSIFIABLE_TYPES } from "@/lib/fundConfig"
 
 interface DonationFormProps {
@@ -21,6 +22,7 @@ interface DonationFormProps {
 
 export function DonationForm({ causes }: DonationFormProps) {
   const router = useRouter()
+  const { createDonation } = useTreasury()
   const [loading, setLoading] = useState(false)
 
   const [amountGbp, setAmountGbp] = useState("")
@@ -55,7 +57,7 @@ export function DonationForm({ causes }: DonationFormProps) {
 
     setLoading(true)
     try {
-      await api.createDonation({
+      createDonation({
         amountPence,
         donationType: effectiveType,
         causeId: causeId || null,

@@ -38,6 +38,18 @@ export function NavBar() {
             >
               Import Statement
             </Link>
+            <Link
+              href="/donate"
+              className="px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            >
+              Donate
+            </Link>
+            <Link
+              href="/info"
+              className="px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            >
+              Our Story
+            </Link>
           </nav>
         </div>
       </div>

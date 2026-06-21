@@ -12,10 +12,12 @@ import {
 } from "@/components/ui/select"
 import { FundBadge } from "@/components/FundBadge"
 import { formatPence } from "@/lib/currency"
-import { api, type ImportResult, type ImportRecord, type DonationType } from "@/lib/api"
+import { type ImportResult, type ImportRecord, type DonationType } from "@/lib/api"
+import { useTreasury } from "@/lib/demoStore"
 import { FUND_CONFIG, CLASSIFIABLE_TYPES } from "@/lib/fundConfig"
 
 export function ImportUpload() {
+  const { importCannedStatement, reclassifyDonation } = useTreasury()
   const inputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [result, setResult] = useState<ImportResult | null>(null)
@@ -26,7 +28,7 @@ export function ImportUpload() {
     setUploading(true)
     setResult(null)
     try {
-      const r = await api.importBankStatement(file)
+      const r = importCannedStatement()
       setResult(r)
       toast.success(
         `Imported ${r.summary.classifiedCount} classified, ${r.summary.uncategorisedCount} need review`
@@ -46,7 +48,7 @@ export function ImportUpload() {
 
   async function handleClassify(record: ImportRecord, type: DonationType) {
     try {
-      await api.reclassifyDonation(record.donationId, type)
+      reclassifyDonation(record.donationId, type)
       setClassified((prev) => new Set([...prev, record.row]))
       toast.success(`Classified as ${FUND_CONFIG[type].label}`)
     } catch (err) {
