@@ -1,11 +1,9 @@
-"use client"
-
 import { Separator } from "@/components/ui/separator"
 import { DonationForm } from "@/components/DonationForm"
-import { useTreasury } from "@/lib/demoStore"
+import { listCauses } from "@/lib/services.server"
 
 export default function NewDonationPage() {
-  const { causes } = useTreasury()
+  const causes = listCauses()
 
   return (
     <div className="space-y-6 max-w-2xl">
