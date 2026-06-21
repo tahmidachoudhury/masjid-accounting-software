@@ -12,7 +12,7 @@ import {
   pickXAxisTickIndices,
   type LineSeries,
 } from "@/lib/chart-utils"
-import { motion as motionTokens } from "@/lib/design-tokens"
+import { chartFillOpacity, motion as motionTokens } from "@/lib/design-tokens"
 import { ChartTooltipContent } from "./ChartTooltipContent"
 
 interface LineChartProps {
@@ -58,7 +58,11 @@ export function LineChart({
       >
         <defs>
           <linearGradient id="lineAreaGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.3" />
+            <stop
+              offset="0%"
+              stopColor="var(--primary)"
+              stopOpacity={chartFillOpacity * 0.4}
+            />
             <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
           </linearGradient>
         </defs>
@@ -84,6 +88,7 @@ export function LineChart({
               d={sPath}
               fill="none"
               stroke={s.color}
+              strokeOpacity={chartFillOpacity}
               strokeWidth={si === 0 ? 2.5 : 1.5}
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -110,6 +115,7 @@ export function LineChart({
                 cy={p.y}
                 r={hoveredIndex === i ? 5 : 3}
                 fill={primary.color}
+                fillOpacity={chartFillOpacity}
                 className="pointer-events-none transition-all"
               />
               <ChartTooltip>

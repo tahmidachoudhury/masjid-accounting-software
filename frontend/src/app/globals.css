@@ -102,6 +102,7 @@
   --warning-foreground: #451A03;
 
   /* Charts */
+  --chart-fill-opacity: 0.75;
   --chart-1: #FF6B35;
   --chart-2: #4ADE80;
   --chart-3: #E4E4E7;

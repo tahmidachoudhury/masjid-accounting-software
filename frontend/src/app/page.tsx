@@ -51,6 +51,9 @@ export default async function DashboardPage() {
     summary &&
     computeTotalTrendPercent(summary.balances, donations, fundTrends)
 
+  const showChartSidebar =
+    (showMadrasah && madrasahIntake) || (showFundChart && summary)
+
   return (
     <div className="space-y-10">
       <div>
@@ -74,36 +77,29 @@ export default async function DashboardPage() {
           <h2 className="text-lg font-semibold text-foreground">Overview</h2>
           <Separator className="mt-2 mb-4" />
 
-          {(showBalances && summary) || showMadrasah ? (
+          {showBalances && summary ? (
             <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {showBalances && summary && (
-                <>
-                  <TotalBalanceCard
-                    totalPence={summary.totalPence}
-                    changePercent={totalTrend}
-                    periodLabel={periodLabel}
-                  />
-                  {summary.balances.map((b) => (
-                    <BalanceCard
-                      key={b.donationType}
-                      donationType={b.donationType}
-                      amountPence={b.amountPence}
-                      changePercent={resolveTrendPercent(
-                        donations,
-                        b.donationType,
-                        b.amountPence,
-                        fundTrends
-                      )}
-                      periodLabel={periodLabel}
-                    />
-                  ))}
-                </>
-              )}
-              {showMadrasah && madrasahIntake && (
-                <MadrasahIntakeKpiCard data={madrasahIntake} />
-              )}
+              <TotalBalanceCard
+                totalPence={summary.totalPence}
+                changePercent={totalTrend}
+                periodLabel={periodLabel}
+              />
+              {summary.balances.map((b) => (
+                <BalanceCard
+                  key={b.donationType}
+                  donationType={b.donationType}
+                  amountPence={b.amountPence}
+                  changePercent={resolveTrendPercent(
+                    donations,
+                    b.donationType,
+                    b.amountPence,
+                    fundTrends
+                  )}
+                  periodLabel={periodLabel}
+                />
+              ))}
             </div>
-          ) : (
+          ) : !showFundChart && !showTrendChart && !showMadrasah && !showCauseChart ? (
             <div className="mb-6 rounded-lg border border-dashed border-border py-10 text-center">
               <p className="text-sm text-muted-foreground">No classified donations yet.</p>
               <Link
@@ -113,18 +109,30 @@ export default async function DashboardPage() {
                 Record the first donation →
               </Link>
             </div>
-          )}
+          ) : null}
 
-          {(showFundChart || showTrendChart) && (
-            <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-2">
-              {showFundChart && summary && (
-                <FundMixChart balances={summary.balances} totalPence={summary.totalPence} />
-              )}
+          {(showFundChart || showTrendChart || showMadrasah) && (
+            <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
               {showTrendChart && (
-                <DonationsTrendChart
-                  donations={donations}
-                  cumulativePoints={cumulativePoints}
-                />
+                <div className={showChartSidebar ? "lg:col-span-2" : "lg:col-span-3"}>
+                  <DonationsTrendChart
+                    donations={donations}
+                    cumulativePoints={cumulativePoints}
+                  />
+                </div>
+              )}
+              {showChartSidebar && (
+                <div className="flex flex-col gap-4 lg:col-span-1">
+                  {showMadrasah && madrasahIntake && (
+                    <MadrasahIntakeKpiCard data={madrasahIntake} />
+                  )}
+                  {showFundChart && summary && (
+                    <FundMixChart
+                      balances={summary.balances}
+                      totalPence={summary.totalPence}
+                    />
+                  )}
+                </div>
               )}
             </div>
           )}

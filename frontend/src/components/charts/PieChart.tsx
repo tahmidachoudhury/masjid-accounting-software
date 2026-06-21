@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { buildPieSegments } from "@/lib/chart-utils"
-import { motion as motionTokens } from "@/lib/design-tokens"
+import { chartFillOpacity, motion as motionTokens } from "@/lib/design-tokens"
 import { ChartLegend } from "./ChartLegend"
 import { ChartSegmentTooltip } from "./ChartSegmentTooltip"
 import type { DonutChartData } from "./DonutChart"
@@ -40,6 +40,7 @@ export function PieChart({ data, size = 200 }: PieChartProps) {
               <motion.path
                 d={seg.path}
                 fill={seg.color}
+                fillOpacity={chartFillOpacity}
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ pathLength: 1, opacity: 1 }}
                 transition={{
