@@ -12,6 +12,9 @@ export const chartPalette = [
   "var(--chart-5)",
 ] as const
 
+/** Fill/stroke opacity for chart shapes (legends stay fully opaque). */
+export const chartFillOpacity = 0.75
+
 /** Shared plot area height — keeps chart cards aligned in the dashboard grid. */
 export const chartPlotHeight = 200
 

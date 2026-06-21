@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { buildPieSegments } from "@/lib/chart-utils"
-import { motion as motionTokens } from "@/lib/design-tokens"
+import { chartFillOpacity, motion as motionTokens } from "@/lib/design-tokens"
 import { cn } from "@/lib/utils"
 import { ChartLegend } from "./ChartLegend"
 import { ChartPlot } from "./ChartPlot"
@@ -79,6 +79,7 @@ export function DonutChart({
             <motion.path
               d={seg.path}
               fill={seg.color}
+              fillOpacity={chartFillOpacity}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{

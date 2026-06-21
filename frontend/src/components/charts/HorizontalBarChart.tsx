@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useReducedMotion } from "framer-motion"
-import { motion as motionTokens } from "@/lib/design-tokens"
+import { chartFillOpacity, motion as motionTokens } from "@/lib/design-tokens"
 
 export interface HorizontalBarItem {
   label: string
@@ -39,6 +39,7 @@ export function HorizontalBarChart({ items, showAxis = true }: HorizontalBarChar
           <div className="relative h-2.5 flex-1 overflow-hidden rounded-full bg-muted">
             <motion.div
               className="absolute inset-y-0 left-0 rounded-full bg-primary"
+              style={{ opacity: chartFillOpacity }}
               initial={{ width: reducedMotion ? `${item.value}%` : "0%" }}
               animate={{ width: `${item.value}%` }}
               transition={{
