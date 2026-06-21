@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { DonutChart } from "@/components/charts/DonutChart"
 import { PieChart } from "@/components/charts/PieChart"
+import { HorizontalBarChart } from "@/components/charts/HorizontalBarChart"
 import { LineChart } from "@/components/charts/LineChart"
 import { ChartCard } from "@/components/charts/ChartCard"
 import { semanticColors, spacing, radius } from "@/lib/design-tokens"
@@ -15,6 +16,12 @@ const sampleDonutData = [
   { label: "Zakat", value: 10000, color: "#FBBF24" },
   { label: "Sadaqah", value: 2000, color: "#4ADE80" },
   { label: "Zakat al-Fitr", value: 1000, color: "#FB923C" },
+]
+
+const sampleBarData = [
+  { label: "Roof Repair", value: 43.5 },
+  { label: "Ramadan Iftar", value: 56 },
+  { label: "Hardship Fund", value: 58.7 },
 ]
 
 const samplePieData = [
@@ -113,7 +120,7 @@ export default function StyleGuidePage() {
           <h2 className="text-lg font-semibold">Heading 2 — Section title</h2>
           <h3 className="text-base font-semibold">Heading 3 — Card title</h3>
           <p className="text-sm text-foreground">
-            Body text — Inter sans-serif for readable treasurer workflows.
+            Body text — Roboto for readable treasurer workflows.
           </p>
           <p className="text-xs text-muted-foreground uppercase tracking-widest">
             Label — uppercase tracking
@@ -209,7 +216,10 @@ export default function StyleGuidePage() {
               ]}
             />
           </ChartCard>
-          <ChartCard title="Pie chart" subtitle="Cause breakdown sample" delay={0.2}>
+          <ChartCard title="Cause progress bars" subtitle="Fundraising % toward target" delay={0.2}>
+            <HorizontalBarChart items={sampleBarData} />
+          </ChartCard>
+          <ChartCard title="Pie chart" subtitle="Cause breakdown sample" delay={0.3}>
             <PieChart data={samplePieData} />
           </ChartCard>
         </div>

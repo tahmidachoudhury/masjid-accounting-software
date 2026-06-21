@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion"
 import { buildPieSegments } from "@/lib/chart-utils"
 import { motion as motionTokens } from "@/lib/design-tokens"
 import { ChartLegend } from "./ChartLegend"
+import { ChartSegmentTooltip } from "./ChartSegmentTooltip"
 import type { DonutChartData } from "./DonutChart"
 
 interface PieChartProps {
@@ -28,18 +29,27 @@ export function PieChart({ data, size = 200 }: PieChartProps) {
       <div className="mx-auto" style={{ width: size, height: size }}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           {segments.map((seg, i) => (
-            <motion.path
+            <ChartSegmentTooltip
               key={seg.label}
-              d={seg.path}
-              fill={seg.color}
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{
-                duration: reducedMotion ? 0 : motionTokens.durationSlow,
-                delay: reducedMotion ? 0 : i * motionTokens.stagger,
-                ease: motionTokens.ease,
-              }}
-            />
+              label={seg.label}
+              value={seg.value}
+              percentage={seg.percentage}
+              color={seg.color}
+              path={seg.path}
+            >
+              <motion.path
+                d={seg.path}
+                fill={seg.color}
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{
+                  duration: reducedMotion ? 0 : motionTokens.durationSlow,
+                  delay: reducedMotion ? 0 : i * motionTokens.stagger,
+                  ease: motionTokens.ease,
+                }}
+                className="pointer-events-none"
+              />
+            </ChartSegmentTooltip>
           ))}
         </svg>
       </div>

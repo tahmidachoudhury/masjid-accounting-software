@@ -2,14 +2,25 @@
 
 import { useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
-import { buildLinePath, formatChartValue, type LineSeries } from "@/lib/chart-utils"
+import {
+  ChartTooltip,
+  ChartTooltipPopup,
+  ChartTooltipTrigger,
+} from "./ChartTooltip"
+import {
+  buildLinePath,
+  pickXAxisTickIndices,
+  type LineSeries,
+} from "@/lib/chart-utils"
 import { motion as motionTokens } from "@/lib/design-tokens"
+import { ChartTooltipContent } from "./ChartTooltipContent"
 
 interface LineChartProps {
   series: LineSeries[]
   width?: number
   height?: number
   showArea?: boolean
+  maxXTicks?: number
 }
 
 export function LineChart({
@@ -17,6 +28,7 @@ export function LineChart({
   width = 400,
   height = 200,
   showArea = true,
+  maxXTicks = 6,
 }: LineChartProps) {
   const reducedMotion = useReducedMotion()
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
@@ -34,9 +46,7 @@ export function LineChart({
   }
 
   const { areaPath, scaled } = buildLinePath(primary.points, width, height)
-  const xLabels = primary.points
-    .map((p) => p.label)
-    .filter((l): l is string => Boolean(l))
+  const xTickIndices = pickXAxisTickIndices(primary.points.length, maxXTicks)
 
   return (
     <div className="relative w-full">
@@ -89,56 +99,72 @@ export function LineChart({
           )
         })}
 
-        {scaled.map((p, i) => (
-          <circle
-            key={i}
-            cx={p.x}
-            cy={p.y}
-            r={hoveredIndex === i ? 5 : 3}
-            fill="var(--primary)"
-            className="cursor-pointer transition-all"
-            onMouseEnter={() => setHoveredIndex(i)}
-          />
-        ))}
+        {scaled.map((p, i) => {
+          const point = primary.points[i]
+          if (!point) return null
 
-        {xLabels.length > 0 && (
+          return (
+            <g key={i}>
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r={hoveredIndex === i ? 5 : 3}
+                fill={primary.color}
+                className="pointer-events-none transition-all"
+              />
+              <ChartTooltip>
+                <ChartTooltipTrigger
+                  delay={0}
+                  closeDelay={0}
+                  render={
+                    <circle
+                      cx={p.x}
+                      cy={p.y}
+                      r={10}
+                      fill="transparent"
+                      className="cursor-pointer outline-none"
+                    />
+                  }
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                />
+                <ChartTooltipPopup>
+                  <ChartTooltipContent
+                    label={point.label ?? primary.label}
+                    value={point.y}
+                    color={primary.color}
+                  />
+                </ChartTooltipPopup>
+              </ChartTooltip>
+            </g>
+          )
+        })}
+
+        {xTickIndices.length > 0 && (
           <g>
-            {scaled.map((p, i) =>
-              primary.points[i]?.label ? (
+            {xTickIndices.map((i) => {
+              const p = scaled[i]
+              const label = primary.points[i]?.label
+              if (!p || !label) return null
+
+              const textAnchor =
+                i === 0 ? "start" : i === primary.points.length - 1 ? "end" : "middle"
+
+              return (
                 <text
                   key={i}
                   x={p.x}
                   y={height - 4}
-                  textAnchor="middle"
+                  textAnchor={textAnchor}
                   className="fill-muted-foreground text-[9px] uppercase"
                 >
-                  {primary.points[i].label}
+                  {label}
                 </text>
-              ) : null
-            )}
+              )
+            })}
           </g>
         )}
       </svg>
-
-      {hoveredIndex !== null && primary.points[hoveredIndex] && (
-        <div
-          className="absolute rounded-md border border-border bg-card px-2 py-1 text-xs shadow-md pointer-events-none"
-          style={{
-            left: `${(scaled[hoveredIndex].x / width) * 100}%`,
-            top: `${(scaled[hoveredIndex].y / height) * 100}%`,
-            transform: "translate(-50%, -120%)",
-          }}
-        >
-          <span className="font-medium tabular-nums text-primary">
-            {formatChartValue(primary.points[hoveredIndex].y)}
-          </span>
-          {primary.points[hoveredIndex].label && (
-            <span className="ml-1 text-muted-foreground">
-              {primary.points[hoveredIndex].label}
-            </span>
-          )}
-        </div>
-      )}
     </div>
   )
 }

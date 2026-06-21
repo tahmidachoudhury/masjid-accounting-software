@@ -124,6 +124,24 @@ function describePieSlice(
   return `M ${cx} ${cy} L ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y} Z`
 }
 
+/** Pick evenly spaced indices for x-axis labels, always including first and last. */
+export function pickXAxisTickIndices(
+  pointCount: number,
+  maxTicks = 6
+): number[] {
+  if (pointCount <= 0) return []
+  if (pointCount <= maxTicks) {
+    return Array.from({ length: pointCount }, (_, i) => i)
+  }
+
+  const indices = new Set<number>([0, pointCount - 1])
+  const step = (pointCount - 1) / (maxTicks - 1)
+  for (let i = 1; i < maxTicks - 1; i++) {
+    indices.add(Math.round(i * step))
+  }
+  return [...indices].sort((a, b) => a - b)
+}
+
 export function buildLinePath(
   points: LinePoint[],
   width: number,

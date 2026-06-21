@@ -15,8 +15,13 @@ export function FundMixChart({ balances, totalPence }: FundMixChartProps) {
   const data = balancesToChartData(balances)
 
   return (
-    <ChartCard title="Fund Composition" subtitle="Share of classified balances by type">
+    <ChartCard
+      title="Fund Composition"
+      subtitle="Share of classified balances by type"
+      className="h-full"
+    >
       <DonutChart
+        fillPlot
         data={data}
         centerValue={formatPence(totalPence)}
         centerLabel="Total"

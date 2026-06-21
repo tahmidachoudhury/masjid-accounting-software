@@ -1,0 +1,23 @@
+{
+  "granularity": "month",
+  "academicYear": "2025-2026",
+  "unit": "students",
+  "description": "New madrasah student enrollments per month. Intake counts new registrations; cumulativeEnrolled is running total for the academic year.",
+  "series": [
+    {
+      "label": "New enrollments",
+      "points": [
+        { "date": "2025-09-01", "label": "Sep", "intake": 28, "cumulativeEnrolled": 28 },
+        { "date": "2025-10-01", "label": "Oct", "intake": 14, "cumulativeEnrolled": 42 },
+        { "date": "2025-11-01", "label": "Nov", "intake": 9, "cumulativeEnrolled": 51 },
+        { "date": "2025-12-01", "label": "Dec", "intake": 6, "cumulativeEnrolled": 57 },
+        { "date": "2026-01-01", "label": "Jan", "intake": 11, "cumulativeEnrolled": 68 },
+        { "date": "2026-02-01", "label": "Feb", "intake": 8, "cumulativeEnrolled": 76 },
+        { "date": "2026-03-01", "label": "Mar", "intake": 15, "cumulativeEnrolled": 91 },
+        { "date": "2026-04-01", "label": "Apr", "intake": 7, "cumulativeEnrolled": 98 },
+        { "date": "2026-05-01", "label": "May", "intake": 5, "cumulativeEnrolled": 103 },
+        { "date": "2026-06-01", "label": "Jun", "intake": 4, "cumulativeEnrolled": 107 }
+      ]
+    }
+  ]
+}

@@ -12,6 +12,9 @@ export const chartPalette = [
   "var(--chart-5)",
 ] as const
 
+/** Shared plot area height — keeps chart cards aligned in the dashboard grid. */
+export const chartPlotHeight = 200
+
 export const motion = {
   duration: 0.4,
   durationSlow: 0.8,

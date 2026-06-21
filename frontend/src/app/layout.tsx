@@ -1,19 +1,21 @@
 import type { Metadata } from "next"
-import { Inter, Lora } from "next/font/google"
+import { Roboto, Roboto_Mono } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AppShell } from "@/components/layout/AppShell"
 
-const inter = Inter({
+const roboto = Roboto({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto",
   display: "swap",
 })
 
-const lora = Lora({
+const robotoMono = Roboto_Mono({
   subsets: ["latin"],
-  variable: "--font-lora",
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto-mono",
   display: "swap",
 })
 
@@ -27,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${lora.variable} h-full antialiased`}
+      className={`dark ${roboto.variable} ${robotoMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full bg-background text-foreground">

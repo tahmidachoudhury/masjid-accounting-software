@@ -25,17 +25,17 @@ export function ChartCard({
       animate={motionTokens.entrance.animate}
       transition={{ duration: motionTokens.duration, delay, ease: motionTokens.ease }}
       className={cn(
-        "rounded-xl border border-border bg-card p-6 shadow-card",
+        "flex h-full flex-col rounded-xl border border-border bg-card p-6 shadow-card",
         className
       )}
     >
-      <div className="mb-4">
+      <div className="mb-4 shrink-0">
         <h3 className="text-sm font-semibold text-foreground">{title}</h3>
         {subtitle && (
           <p className="mt-0.5 text-xs text-muted-foreground">{subtitle}</p>
         )}
       </div>
-      {children}
+      <div className="min-h-0 flex-1">{children}</div>
     </motion.div>
   )
 }
