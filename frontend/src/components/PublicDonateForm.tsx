@@ -5,12 +5,10 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { Cause, DonationType } from "@/lib/api"
-import { useTreasury } from "@/lib/demoStore"
+import { api, type Cause, type DonationType } from "@/lib/api"
 import { CLASSIFIABLE_TYPES, FUND_CONFIG } from "@/lib/fundConfig"
 
 export function PublicDonateForm({ causes }: { causes: Cause[] }) {
-  const { createDonation } = useTreasury()
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [amountGbp, setAmountGbp] = useState("")
@@ -22,18 +20,23 @@ export function PublicDonateForm({ causes }: { causes: Cause[] }) {
   const availableTypes = useMemo(() => selectedCause?.allowedTypes.length ? CLASSIFIABLE_TYPES.filter((type) => selectedCause.allowedTypes.includes(type)) : CLASSIFIABLE_TYPES, [selectedCause])
   const effectiveType = donationType && availableTypes.includes(donationType as (typeof CLASSIFIABLE_TYPES)[number]) ? donationType : ""
 
-  function submit(event: React.FormEvent) {
+  async function submit(event: React.FormEvent) {
     event.preventDefault()
     if (!causeId) return toast.error("Please choose a cause")
     if (!effectiveType) return toast.error("Please choose a donation type")
     const amount = Number.parseFloat(amountGbp)
     if (Number.isNaN(amount) || amount <= 0) return toast.error("Enter a valid amount in pounds, for example 25.00")
     setLoading(true)
-    createDonation({ amountPence: Math.round(amount * 100), donationType: effectiveType, causeId, giftAid, donorRef: donorRef.trim() || null, source: "manual" })
-    setSubmitted(true)
-    setAmountGbp(""); setCauseId(""); setDonationType(""); setGiftAid(false); setDonorRef("")
-    toast.success("Donation recorded. JazakAllah khair.")
-    setLoading(false)
+    try {
+      await api.createDonation({ amountPence: Math.round(amount * 100), donationType: effectiveType, causeId, giftAid, donorRef: donorRef.trim() || null, source: "manual" })
+      setSubmitted(true)
+      setAmountGbp(""); setCauseId(""); setDonationType(""); setGiftAid(false); setDonorRef("")
+      toast.success("Donation recorded. JazakAllah khair.")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to record donation")
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (submitted) return <div className="max-w-xl rounded-xl border border-green-200 bg-green-50 p-6"><h3 className="font-semibold text-green-900">JazakAllah khair</h3><p className="mt-2 text-sm leading-6 text-green-800">Your donation has been recorded. The masjid team will reconcile it against the payment received.</p><Button type="button" className="mt-5" onClick={() => setSubmitted(false)}>Make another donation</Button></div>
