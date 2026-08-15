@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { DEMO_CAUSES, DEMO_DONATIONS } from "@/lib/demoData"
 import type { Cause, Donation, DonationCreate, DonationType, ImportResult } from "@/lib/api"
 
-const STORAGE_KEY = "masjid-treasury-demo-v3"
+const STORAGE_KEY = "masjid-treasury-demo-v4"
 type TreasuryContextValue = {
   causes: Cause[]; donations: Donation[]
   createDonation: (data: DonationCreate) => void
@@ -60,7 +60,7 @@ export function TreasuryProvider({ children }: { children: ReactNode }) {
       return next
     }),
     importCannedStatement: () => {
-      const rows: Array<[number, number, DonationType, string | null]> = [[2, 10_000, "zakat", "Monthly zakat payment"], [3, 5_000, "sadaqah", "Sadaqah for Ramadan"], [4, 7_500, "uncategorised", "Ramadan donation"], [5, 20_000, "uncategorised", "Anonymous transfer"], [6, 2_000, "zakat_al_fitr", "Fitrana - family of 4"], [7, 30_000, "general", "Roof appeal donation"]]
+      const rows: Array<[number, number, DonationType, string | null]> = [[2, 45_000, "zakat", "Standing order · Donor 1842"], [3, 12_500, "sadaqah", "Online donation · Gift Aid"], [4, 34_000, "uncategorised", "Cash deposit · counter 2"], [5, 9_000, "zakat_al_fitr", "Fitrana reconciliation"], [6, 68_000, "general", "Friday collection · 7 Aug"]]
       const records = rows.map(([row, amountPence, donationType, donorRef]) => ({ row, donationId: id(), amountPence, donationType, donorRef }))
       commit((current) => {
         const next = { ...current, donations: [...records.map((record) => ({ id: record.donationId, amountPence: record.amountPence, donationType: record.donationType, causeId: null, giftAid: false, donorRef: record.donorRef, source: "bulk_import" as const, createdAt: new Date().toISOString() })), ...current.donations] }

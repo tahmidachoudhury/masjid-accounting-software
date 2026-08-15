@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 type Direction = "forward" | "backward";
 
-const TOTAL_SLIDES = 15;
+const TOTAL_SLIDES = 16;
 
 function SlideWrapper({
   children,
@@ -222,9 +222,105 @@ function Slide1() {
   );
 }
 
+function TeamSlide() {
+  const members = [
+    {
+      initials: "IF",
+      name: "Ifaz",
+      role: "Product & Engineering Lead",
+      credentials: "SWE at Bloomberg · Former Quant at QRT",
+      education: "Joint Mathematics & Computer Science · Imperial",
+      strengths: [
+        "Turns customer conversations into clear product requirements",
+        "Builds AI systems for businesses from discovery through delivery",
+        "Technical lead at STEMM, supporting 200+ students",
+      ],
+      featured: true,
+    },
+    {
+      initials: "MA",
+      name: "Mahdi",
+      role: "Engineering",
+      credentials: "Software Engineer at Meta",
+      education: "Joint Mathematics & Computer Science · Imperial",
+      strengths: [
+        "Strong product and systems engineering foundations",
+        "Experience building software in a high-scale environment",
+      ],
+    },
+    {
+      initials: "TA",
+      name: "Tahmid",
+      role: "Platform & Reliability",
+      credentials: "Platform Engineer at TiiQu",
+      education: "Production infrastructure specialist",
+      strengths: [
+        "Reliable deployment and operational discipline",
+        "Keeps the product secure, observable and production-ready",
+      ],
+    },
+  ];
+
+  return (
+    <SlideShell slideNum={2} label="The Team">
+      <div className="anim-fade-up mb-2">
+        <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
+          Built to Deliver
+        </span>
+      </div>
+      <h2 className="anim-fade-up delay-1 text-4xl font-bold mb-3" style={{ color: "#111827" }}>
+        A technical team that can go from customer need to{ " " }
+        <span style={{ color: "#16a34a" }}>production</span>
+      </h2>
+      <p className="anim-fade-up delay-2 text-base mb-6" style={{ color: "#6b7280" }}>
+        Imperial-trained engineers spanning financial systems, scaled software and dependable infrastructure.
+      </p>
+
+      <div className="grid grid-cols-[1.2fr_1fr_1fr] gap-4 flex-1">
+        {members.map((member, index) => (
+          <div
+            key={member.name}
+            className={"anim-fade-up delay-" + (index + 3) + " rounded-2xl p-5 flex flex-col"}
+            style={{
+              background: member.featured ? "#f0fdf4" : "#f9fafb",
+              border: "1.5px solid " + (member.featured ? "#bbf7d0" : "#e5e7eb"),
+            }}
+          >
+            <div
+              className="w-11 h-11 rounded-xl flex items-center justify-center text-sm font-bold mb-4"
+              style={{ background: member.featured ? "#16a34a" : "#e5e7eb", color: member.featured ? "#fff" : "#374151" }}
+            >
+              {member.initials}
+            </div>
+            <h3 className="text-2xl font-bold" style={{ color: "#111827" }}>{member.name}</h3>
+            <p className="text-sm font-semibold mt-1" style={{ color: "#16a34a" }}>{member.role}</p>
+            <p className="text-sm font-semibold mt-4" style={{ color: "#374151" }}>{member.credentials}</p>
+            <p className="text-xs mt-1 leading-relaxed" style={{ color: "#6b7280" }}>{member.education}</p>
+            <div className="h-px my-4" style={{ background: member.featured ? "#bbf7d0" : "#e5e7eb" }} />
+            <ul className="space-y-2">
+              {member.strengths.map((strength) => (
+                <li key={strength} className="flex gap-2 text-xs leading-relaxed" style={{ color: "#4b5563" }}>
+                  <span style={{ color: "#16a34a" }}>●</span>
+                  <span>{strength}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div className="anim-fade-up delay-6 rounded-xl px-5 py-3 mt-4 text-center" style={{ background: "#ecfdf5", border: "1.5px solid #bbf7d0" }}>
+        <p className="text-sm font-semibold" style={{ color: "#15803d" }}>
+          Product fluency × engineering depth × production reliability
+        </p>
+      </div>
+    </SlideShell>
+  );
+}
+
 function Slide2() {
   return (
-    <SlideShell slideNum={2} label="The Opportunity">
+    <SlideShell slideNum={3} label="The Opportunity">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           The Scale
@@ -249,7 +345,7 @@ function Slide2() {
 
 function Slide3() {
   return (
-    <SlideShell slideNum={3} label="The Problem">
+    <SlideShell slideNum={4} label="The Problem">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           Infrastructure
@@ -291,7 +387,7 @@ function Slide3() {
 
 function Slide4() {
   return (
-    <SlideShell slideNum={4} label="Regulation">
+    <SlideShell slideNum={5} label="Regulation">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           Legal Requirement
@@ -333,7 +429,7 @@ function Slide4() {
 
 function Slide5() {
   return (
-    <SlideShell slideNum={5} label="Risk">
+    <SlideShell slideNum={6} label="Risk">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#dc2626" }}>
           When Things Go Wrong
@@ -383,7 +479,7 @@ function Slide5() {
 
 function Slide6() {
   return (
-    <SlideShell slideNum={6} label="Risk">
+    <SlideShell slideNum={7} label="Risk">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#dc2626" }}>
           When Things Go Wrong
@@ -430,7 +526,7 @@ function Slide6() {
 
 function Slide7() {
   return (
-    <SlideShell slideNum={7} label="Root Cause">
+    <SlideShell slideNum={8} label="Root Cause">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           The Core Problem
@@ -466,7 +562,7 @@ function Slide7() {
 
 function Slide8() {
   return (
-    <SlideShell slideNum={8} label="The Story">
+    <SlideShell slideNum={9} label="The Story">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#6b7280" }}>
           Before Noor Treasury
@@ -524,7 +620,7 @@ function Slide8() {
 
 function Slide9() {
   return (
-    <SlideShell slideNum={9} label="The Story">
+    <SlideShell slideNum={10} label="The Story">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#6b7280" }}>
           Before Noor Treasury
@@ -574,7 +670,7 @@ function Slide9() {
 
 function Slide10() {
   return (
-    <SlideShell slideNum={10} label="The Story">
+    <SlideShell slideNum={11} label="The Story">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#6b7280" }}>
           Before Noor Treasury
@@ -630,7 +726,7 @@ function Slide10() {
 
 function Slide11() {
   return (
-    <SlideShell slideNum={11} label="The Solution">
+    <SlideShell slideNum={12} label="The Solution">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           After Noor Treasury
@@ -688,7 +784,7 @@ function Slide11() {
 
 function Slide12() {
   return (
-    <SlideShell slideNum={12} label="The Solution">
+    <SlideShell slideNum={13} label="The Solution">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           After Noor Treasury
@@ -759,7 +855,7 @@ function Slide12() {
 
 function Slide13() {
   return (
-    <SlideShell slideNum={13} label="The Solution">
+    <SlideShell slideNum={14} label="The Solution">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           After Noor Treasury
@@ -814,7 +910,7 @@ function Slide13() {
 
 function Slide14() {
   return (
-    <SlideShell slideNum={14} label="Product">
+    <SlideShell slideNum={15} label="Product">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           How It Works
@@ -897,7 +993,7 @@ function Slide14() {
 
 function Slide15() {
   return (
-    <SlideShell slideNum={15} label="Vision" accent>
+    <SlideShell slideNum={16} label="Vision" accent>
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           The Vision
@@ -988,7 +1084,7 @@ function Slide15() {
 /* ─── Slide Registry ────────────────────────────────── */
 
 const SLIDES = [
-  Slide1, Slide2, Slide3, Slide4, Slide5,
+  Slide1, TeamSlide, Slide2, Slide3, Slide4, Slide5,
   Slide6, Slide7, Slide8, Slide9, Slide10,
   Slide11, Slide12, Slide13, Slide14, Slide15,
 ];

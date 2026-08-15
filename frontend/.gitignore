@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+/masjid.db-wal
+/masjid.db-shm
 
 # debug
 npm-debug.log*

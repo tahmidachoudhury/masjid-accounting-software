@@ -1,0 +1,64 @@
+{
+  "causes": [
+    {
+      "id": "roof-renewal",
+      "name": "Masjid Roof Renewal",
+      "targetPence": 1800000,
+      "deadline": "2026-10-31",
+      "allowedTypes": ["general", "sadaqah", "lillah"],
+      "createdAt": "2026-01-08T10:00:00.000Z"
+    },
+    {
+      "id": "community-iftar",
+      "name": "Community Iftar Programme",
+      "targetPence": 750000,
+      "deadline": "2027-02-15",
+      "allowedTypes": ["general", "sadaqah"],
+      "createdAt": "2026-02-12T10:00:00.000Z"
+    },
+    {
+      "id": "local-hardship",
+      "name": "Local Hardship Fund",
+      "targetPence": 1200000,
+      "deadline": null,
+      "allowedTypes": ["zakat", "sadaqah", "lillah", "general"],
+      "createdAt": "2026-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "youth-madrasah",
+      "name": "Youth & Madrasah Programme",
+      "targetPence": 800000,
+      "deadline": "2026-09-30",
+      "allowedTypes": ["general", "sadaqah", "lillah"],
+      "createdAt": "2026-03-05T10:00:00.000Z"
+    }
+  ],
+  "donations": [
+    { "id": "demo-001", "amountPence": 12500, "donationType": "uncategorised", "causeId": null, "giftAid": false, "donorRef": "Bank transfer · reference unclear", "source": "bulk_import", "createdAt": "2026-08-12T15:42:00.000Z" },
+    { "id": "demo-002", "amountPence": 68000, "donationType": "general", "causeId": "roof-renewal", "giftAid": false, "donorRef": "Friday collection · 7 Aug", "source": "bulk_import", "createdAt": "2026-08-12T10:18:00.000Z" },
+    { "id": "demo-003", "amountPence": 45000, "donationType": "zakat", "causeId": null, "giftAid": true, "donorRef": "Standing order · Donor 1842", "source": "manual", "createdAt": "2026-08-11T08:30:00.000Z" },
+    { "id": "demo-004", "amountPence": 50000, "donationType": "sadaqah", "causeId": "community-iftar", "giftAid": true, "donorRef": "Online donation · Gift Aid", "source": "manual", "createdAt": "2026-08-10T19:22:00.000Z" },
+    { "id": "demo-005", "amountPence": 34000, "donationType": "uncategorised", "causeId": null, "giftAid": false, "donorRef": "Cash deposit · counter 2", "source": "bulk_import", "createdAt": "2026-08-09T16:05:00.000Z" },
+    { "id": "demo-006", "amountPence": 150000, "donationType": "zakat", "causeId": "local-hardship", "giftAid": false, "donorRef": "Zakat allocation · August", "source": "manual", "createdAt": "2026-08-08T12:10:00.000Z" },
+    { "id": "demo-007", "amountPence": 25000, "donationType": "sadaqah", "causeId": "youth-madrasah", "giftAid": true, "donorRef": "Card donation · Kiosk 02", "source": "manual", "createdAt": "2026-08-07T20:14:00.000Z" },
+    { "id": "demo-008", "amountPence": 30000, "donationType": "general", "causeId": null, "giftAid": false, "donorRef": "Standing order · Family 031", "source": "bulk_import", "createdAt": "2026-08-06T07:45:00.000Z" },
+    { "id": "demo-009", "amountPence": 115000, "donationType": "sadaqah", "causeId": "roof-renewal", "giftAid": true, "donorRef": "Roof appeal · Online", "source": "manual", "createdAt": "2026-08-04T14:36:00.000Z" },
+    { "id": "demo-010", "amountPence": 9000, "donationType": "zakat_al_fitr", "causeId": null, "giftAid": false, "donorRef": "Fitrana reconciliation", "source": "bulk_import", "createdAt": "2026-08-03T09:12:00.000Z" },
+    { "id": "demo-011", "amountPence": 95000, "donationType": "general", "causeId": "youth-madrasah", "giftAid": false, "donorRef": "Summer programme appeal", "source": "manual", "createdAt": "2026-08-01T18:20:00.000Z" },
+    { "id": "demo-012", "amountPence": 85000, "donationType": "sadaqah", "causeId": "community-iftar", "giftAid": true, "donorRef": "Monthly community donor", "source": "manual", "createdAt": "2026-07-30T11:04:00.000Z" },
+    { "id": "demo-013", "amountPence": 130000, "donationType": "sadaqah", "causeId": "local-hardship", "giftAid": false, "donorRef": "Hardship appeal · Jummah", "source": "manual", "createdAt": "2026-07-27T16:40:00.000Z" },
+    { "id": "demo-014", "amountPence": 50000, "donationType": "waqf", "causeId": null, "giftAid": true, "donorRef": "Waqf standing order", "source": "bulk_import", "createdAt": "2026-07-24T08:02:00.000Z" },
+    { "id": "demo-015", "amountPence": 320000, "donationType": "general", "causeId": "roof-renewal", "giftAid": false, "donorRef": "Community fundraising dinner", "source": "manual", "createdAt": "2026-07-21T20:30:00.000Z" },
+    { "id": "demo-016", "amountPence": 75000, "donationType": "lillah", "causeId": "roof-renewal", "giftAid": true, "donorRef": "Building fund standing order", "source": "bulk_import", "createdAt": "2026-07-18T08:15:00.000Z" },
+    { "id": "demo-017", "amountPence": 195000, "donationType": "general", "causeId": "community-iftar", "giftAid": false, "donorRef": "Ramadan pledge settlement", "source": "manual", "createdAt": "2026-07-15T13:26:00.000Z" },
+    { "id": "demo-018", "amountPence": 310000, "donationType": "general", "causeId": "local-hardship", "giftAid": false, "donorRef": "Emergency appeal collection", "source": "manual", "createdAt": "2026-07-12T17:50:00.000Z" },
+    { "id": "demo-019", "amountPence": 60000, "donationType": "sadaqah", "causeId": "youth-madrasah", "giftAid": true, "donorRef": "Parents fundraising group", "source": "manual", "createdAt": "2026-07-10T19:05:00.000Z" },
+    { "id": "demo-020", "amountPence": 75000, "donationType": "lillah", "causeId": "local-hardship", "giftAid": false, "donorRef": "Lillah monthly allocation", "source": "manual", "createdAt": "2026-07-08T10:42:00.000Z" },
+    { "id": "demo-021", "amountPence": 150000, "donationType": "general", "causeId": "roof-renewal", "giftAid": true, "donorRef": "Local business contribution", "source": "manual", "createdAt": "2026-07-06T15:18:00.000Z" },
+    { "id": "demo-022", "amountPence": 12000, "donationType": "fidya", "causeId": null, "giftAid": false, "donorRef": "Fidya payment · 4 days", "source": "manual", "createdAt": "2026-07-05T09:25:00.000Z" },
+    { "id": "demo-023", "amountPence": 6000, "donationType": "kaffarah", "causeId": null, "giftAid": false, "donorRef": "Kaffarah payment", "source": "manual", "createdAt": "2026-07-04T12:00:00.000Z" },
+    { "id": "demo-024", "amountPence": 40000, "donationType": "lillah", "causeId": "youth-madrasah", "giftAid": true, "donorRef": "Madrasah resources appeal", "source": "manual", "createdAt": "2026-07-02T18:44:00.000Z" },
+    { "id": "demo-025", "amountPence": 45000, "donationType": "sadaqah", "causeId": "local-hardship", "giftAid": true, "donorRef": "Online hardship donation", "source": "manual", "createdAt": "2026-06-29T21:10:00.000Z" },
+    { "id": "demo-026", "amountPence": 25000, "donationType": "general", "causeId": "community-iftar", "giftAid": false, "donorRef": "Community sponsor pledge", "source": "manual", "createdAt": "2026-06-26T11:32:00.000Z" }
+  ]
+}
