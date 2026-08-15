@@ -140,6 +140,9 @@ export function listDonations(params?: {
 
 export function reclassifyDonation(donationId: string, donationType: DonationType): Donation {
   const db = getDb()
+  if (donationType === 'uncategorised' || !VALID_TYPES.has(donationType)) {
+    throw new Error('Choose a valid donation type')
+  }
   const row = db.prepare('SELECT * FROM donations WHERE id = ?').get(donationId) as DbDonation | undefined
   if (!row) throw new Error(`Donation ${donationId} not found`)
   if (row.donation_type !== 'uncategorised') {

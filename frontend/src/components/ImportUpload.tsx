@@ -177,12 +177,11 @@ export function ImportUpload() {
 
 function getMockImportResult(): ImportResult {
   const rows: Array<[number, number, DonationType, string | null]> = [
-    [2, 10_000, "zakat", "Monthly zakat payment"],
-    [3, 5_000, "sadaqah", "Sadaqah for Ramadan"],
-    [4, 7_500, "uncategorised", "Ramadan donation"],
-    [5, 20_000, "uncategorised", "Anonymous transfer"],
-    [6, 2_000, "zakat_al_fitr", "Fitrana - family of 4"],
-    [7, 30_000, "general", "Roof appeal donation"],
+    [2, 45_000, "zakat", "Standing order · Donor 1842"],
+    [3, 12_500, "sadaqah", "Online donation · Gift Aid"],
+    [4, 34_000, "uncategorised", "Cash deposit · counter 2"],
+    [5, 9_000, "zakat_al_fitr", "Fitrana reconciliation"],
+    [6, 68_000, "general", "Friday collection · 7 Aug"],
   ]
   const records = rows.map(([row, amountPence, donationType, donorRef]) => ({
     row,

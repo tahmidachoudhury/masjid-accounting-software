@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 type Direction = "forward" | "backward";
 
-const TOTAL_SLIDES = 15;
+const TOTAL_SLIDES = 14;
 
 function SlideWrapper({
   children,
@@ -215,7 +215,6 @@ function Slide1() {
           </p>
         </div>
         <div className="anim-fade-up delay-5 flex gap-3 mt-2">
-          <Tag color="green">Hackathon 2025</Tag>
           <Tag color="gray">Muslim Community Finance</Tag>
         </div>
       </div>
@@ -223,9 +222,118 @@ function Slide1() {
   );
 }
 
+function TeamSlide() {
+  const supportingMembers = [
+    {
+      name: "Mahdi",
+      role: "Engineering",
+      credentials: "Software Engineer at Meta",
+      education: "Joint Mathematics & Computer Science · Imperial",
+      strengths: [
+        "Strong product and systems engineering foundations",
+        "Builds mobile apps alongside backend systems, so we can ship the mobile experience too",
+      ],
+    },
+    {
+      name: "Tahmid",
+      role: "Platform & Reliability",
+      credentials: "Platform Engineer at TiiQu",
+      education: "Production infrastructure specialist",
+      strengths: [
+        "Reliable deployment and operational discipline",
+        "Keeps the product secure, observable and production-ready",
+      ],
+    },
+  ];
+
+  return (
+    <SlideShell slideNum={2} label="Why Us">
+      <div className="anim-fade-up mb-2">
+        <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
+          Why Us
+        </span>
+      </div>
+      <h2 className="anim-fade-up delay-1 text-4xl font-bold mb-2" style={{ color: "#111827" }}>
+        From understanding the need to{ " " }
+        <span style={{ color: "#16a34a" }}>shipping it reliably</span>
+      </h2>
+      <p className="anim-fade-up delay-2 text-sm mb-4" style={{ color: "#6b7280" }}>
+        Product fluency, engineering depth and production reliability in one founding team.
+      </p>
+
+      <div className="grid grid-rows-2 gap-4 flex-1 min-h-0">
+        <div
+          className="anim-fade-up delay-3 min-h-0 rounded-2xl p-4 grid grid-cols-[0.8fr_1.4fr] gap-6"
+          style={{ background: "#f0fdf4", border: "1.5px solid #86efac" }}
+        >
+        <div className="flex flex-col justify-center">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="w-2 h-2 rounded-full" style={{ background: "#16a34a" }} />
+            <p className="text-sm font-semibold" style={{ color: "#15803d" }}>Product &amp; Engineering Lead</p>
+          </div>
+          <h3 className="text-2xl font-bold" style={{ color: "#111827" }}>Ifaz</h3>
+          <p className="text-sm font-semibold mt-2" style={{ color: "#374151" }}>
+            SWE at Bloomberg · Former Quant at QRT
+          </p>
+          <p className="text-xs mt-1" style={{ color: "#6b7280" }}>
+            Joint Mathematics &amp; Computer Science · Imperial
+          </p>
+          <p className="text-xs leading-relaxed mt-3" style={{ color: "#4b5563" }}>
+            Experienced in speaking with people to understand the right product, organise the work and bring teams together to build it.
+          </p>
+        </div>
+        <ul className="grid gap-2 content-center">
+          {[
+            "At Bloomberg, currently building a new multimillion-dollar product in close collaboration with product and business stakeholders",
+            "As a side hustle, built AI solutions including an e-commerce bot, a self-improving cybersecurity system and an AI legal-document processing system",
+            "Was Technical Lead at STEMM: delivered free bootcamps, led teams building the society website and ran a free coding club — collectively supporting 200+ students",
+          ].map((strength) => (
+            <li
+              key={strength}
+              className="flex gap-3 rounded-xl px-3 py-2 text-xs leading-relaxed"
+              style={{ color: "#374151", background: "rgba(255,255,255,0.72)" }}
+            >
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#16a34a" }} />
+              <span>{strength}</span>
+            </li>
+          ))}
+        </ul>
+        </div>
+
+      <div className="grid grid-cols-2 gap-4 min-h-0">
+        {supportingMembers.map((member, index) => (
+          <div
+            key={member.name}
+            className={"anim-fade-up delay-" + (index + 4) + " min-h-0 rounded-2xl p-3 flex flex-col"}
+            style={{ background: "#f0fdf4", border: "1.5px solid #86efac" }}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 rounded-full" style={{ background: "#16a34a" }} />
+              <p className="text-sm font-semibold" style={{ color: "#15803d" }}>{member.role}</p>
+            </div>
+            <h3 className="text-xl font-bold" style={{ color: "#111827" }}>{member.name}</h3>
+            <p className="text-sm font-semibold mt-2" style={{ color: "#374151" }}>{member.credentials}</p>
+            <p className="text-xs mt-1 leading-relaxed" style={{ color: "#6b7280" }}>{member.education}</p>
+            <div className="h-px my-2" style={{ background: "#bbf7d0" }} />
+            <ul className="space-y-2">
+              {member.strengths.map((strength) => (
+                <li key={strength} className="flex gap-2 text-xs leading-relaxed" style={{ color: "#4b5563" }}>
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#16a34a" }} />
+                  <span>{strength}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      </div>
+    </SlideShell>
+  );
+}
+
 function Slide2() {
   return (
-    <SlideShell slideNum={2} label="The Opportunity">
+    <SlideShell slideNum={3} label="The Opportunity">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           The Scale
@@ -250,7 +358,7 @@ function Slide2() {
 
 function Slide3() {
   return (
-    <SlideShell slideNum={3} label="The Problem">
+    <SlideShell slideNum={4} label="The Problem">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           Infrastructure
@@ -290,9 +398,63 @@ function Slide3() {
   );
 }
 
+function EvidenceSlide() {
+  return (
+    <SlideShell slideNum={5} label="Evidence">
+      <div className="anim-fade-up mb-2">
+        <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
+          Evidence of Risk
+        </span>
+      </div>
+      <h2 className="anim-fade-up delay-1 text-4xl font-bold mb-3" style={{ color: "#111827" }}>
+        Weak controls create financial and{" "}
+        <span style={{ color: "#dc2626" }}>community risk</span>
+      </h2>
+      <p className="anim-fade-up delay-2 text-sm mb-5" style={{ color: "#6b7280" }}>
+        Different cases, same lesson: restricted funds and trustee visibility need an auditable system.
+      </p>
+      <div className="grid grid-cols-2 gap-4 flex-1">
+        <div
+          className="anim-fade-up delay-3 rounded-2xl p-6 flex flex-col"
+          style={{ background: "#fef2f2", border: "1.5px solid #fecaca" }}
+        >
+          <Tag color="red">Confirmed regulatory warning</Tag>
+          <h3 className="text-xl font-bold mt-4" style={{ color: "#111827" }}>
+            East London Mosque Trust
+          </h3>
+          <p className="text-sm font-medium mt-1" style={{ color: "#6b7280" }}>
+            Charity Commission warning · 2025
+          </p>
+          <p className="text-sm leading-relaxed mt-5" style={{ color: "#374151" }}>
+            A formal warning followed failures in responsible fund management and a reported loss of <strong>£1 million</strong>.
+          </p>
+        </div>
+        <div
+          className="anim-fade-up delay-4 rounded-2xl p-6 flex flex-col"
+          style={{ background: "#fffbeb", border: "1.5px solid #fde68a" }}
+        >
+          <Tag color="gray">Reported investigation</Tag>
+          <h3 className="text-xl font-bold mt-4" style={{ color: "#111827" }}>
+            Hounslow Jamia Masjid
+          </h3>
+          <p className="text-sm font-medium mt-1" style={{ color: "#6b7280" }}>
+            Alleged misuse of over £1 million
+          </p>
+          <p className="text-sm leading-relaxed mt-5" style={{ color: "#374151" }}>
+            Reported allegations included unaccounted donations and governance concerns, with community conflict escalating publicly.
+          </p>
+        </div>
+      </div>
+      <p className="anim-fade-up delay-5 text-xs mt-4" style={{ color: "#9ca3af" }}>
+        Sources: Charity Commission regulatory action and reported investigation coverage · verify details before external publication
+      </p>
+    </SlideShell>
+  );
+}
+
 function Slide4() {
   return (
-    <SlideShell slideNum={4} label="Regulation">
+    <SlideShell slideNum={5} label="Regulation">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           Legal Requirement
@@ -334,7 +496,7 @@ function Slide4() {
 
 function Slide5() {
   return (
-    <SlideShell slideNum={5} label="Risk">
+    <SlideShell slideNum={6} label="Risk">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#dc2626" }}>
           When Things Go Wrong
@@ -384,7 +546,7 @@ function Slide5() {
 
 function Slide6() {
   return (
-    <SlideShell slideNum={6} label="Risk">
+    <SlideShell slideNum={7} label="Risk">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#dc2626" }}>
           When Things Go Wrong
@@ -431,7 +593,7 @@ function Slide6() {
 
 function Slide7() {
   return (
-    <SlideShell slideNum={7} label="Root Cause">
+    <SlideShell slideNum={8} label="Root Cause">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           The Core Problem
@@ -465,9 +627,68 @@ function Slide7() {
   );
 }
 
+function ValidationSlide() {
+  return (
+    <SlideShell slideNum={6} label="Validation">
+      <div className="anim-fade-up mb-2">
+        <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
+          Early Validation
+        </span>
+      </div>
+      <h2 className="anim-fade-up delay-1 text-4xl font-bold mb-3" style={{ color: "#111827" }}>
+        The conversation is starting with the right institutions
+      </h2>
+      <p className="anim-fade-up delay-2 text-sm mb-6" style={{ color: "#6b7280" }}>
+        We are validating the workflow before claiming traction.
+      </p>
+      <div className="grid grid-cols-[1.15fr_1fr] gap-5 flex-1">
+        <div
+          className="anim-fade-up delay-3 rounded-2xl p-7 flex flex-col justify-center"
+          style={{ background: "#f0fdf4", border: "1.5px solid #86efac" }}
+        >
+          <Tag color="green">In conversation</Tag>
+          <h3 className="text-2xl font-bold mt-5" style={{ color: "#111827" }}>
+            National Zakat Foundation
+          </h3>
+          <p className="text-base font-medium mt-2" style={{ color: "#15803d" }}>
+            Exploring fit and a potential design-partner pilot
+          </p>
+          <p className="text-sm leading-relaxed mt-5" style={{ color: "#4b5563" }}>
+            The conversation is helping us test how a treasury workflow should handle restricted funds, donor intention and reporting in practice.
+          </p>
+        </div>
+        <div
+          className="anim-fade-up delay-4 rounded-2xl p-7"
+          style={{ background: "#f9fafb", border: "1.5px solid #e5e7eb" }}
+        >
+          <p className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
+            What we will measure next
+          </p>
+          <ul className="space-y-4 mt-5">
+            {[
+              "Hours spent reconciling donations each month",
+              "Uncategorised donations and correction cycles",
+              "Time to produce a restricted-funds report",
+              "Willingness to adopt and pay for a pilot",
+            ].map((item) => (
+              <li key={item} className="flex gap-3 text-sm leading-relaxed" style={{ color: "#374151" }}>
+                <span className="mt-1.5 w-2 h-2 rounded-full shrink-0" style={{ background: "#16a34a" }} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <p className="anim-fade-up delay-5 rounded-xl px-5 py-3 mt-4 text-center text-sm font-semibold" style={{ background: "#ecfdf5", color: "#15803d", border: "1.5px solid #bbf7d0" }}>
+        Next proof point: a time-boxed design-partner pilot with measurable admin savings.
+      </p>
+    </SlideShell>
+  );
+}
+
 function Slide8() {
   return (
-    <SlideShell slideNum={8} label="The Story">
+    <SlideShell slideNum={7} label="The Story">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#6b7280" }}>
           Before Noor Treasury
@@ -525,7 +746,7 @@ function Slide8() {
 
 function Slide9() {
   return (
-    <SlideShell slideNum={9} label="The Story">
+    <SlideShell slideNum={8} label="The Story">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#6b7280" }}>
           Before Noor Treasury
@@ -575,7 +796,7 @@ function Slide9() {
 
 function Slide10() {
   return (
-    <SlideShell slideNum={10} label="The Story">
+    <SlideShell slideNum={11} label="The Story">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#6b7280" }}>
           Before Noor Treasury
@@ -631,7 +852,7 @@ function Slide10() {
 
 function Slide11() {
   return (
-    <SlideShell slideNum={11} label="The Solution">
+    <SlideShell slideNum={9} label="The Solution">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           After Noor Treasury
@@ -689,7 +910,7 @@ function Slide11() {
 
 function Slide12() {
   return (
-    <SlideShell slideNum={12} label="The Solution">
+    <SlideShell slideNum={10} label="The Solution">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           After Noor Treasury
@@ -760,7 +981,7 @@ function Slide12() {
 
 function Slide13() {
   return (
-    <SlideShell slideNum={13} label="The Solution">
+    <SlideShell slideNum={11} label="The Solution">
       <div className="anim-fade-up mb-2 flex items-center gap-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           After Noor Treasury
@@ -815,7 +1036,7 @@ function Slide13() {
 
 function Slide14() {
   return (
-    <SlideShell slideNum={14} label="Product">
+    <SlideShell slideNum={15} label="Product">
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           How It Works
@@ -896,9 +1117,122 @@ function Slide14() {
   );
 }
 
-function Slide15() {
+function BusinessGtmSlide() {
   return (
-    <SlideShell slideNum={15} label="Vision" accent>
+    <SlideShell slideNum={12} label="Business Model & GTM">
+      <div className="anim-fade-up mb-2">
+        <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
+          Business Model
+        </span>
+      </div>
+      <h2 className="anim-fade-up delay-1 text-4xl font-bold mb-3" style={{ color: "#111827" }}>
+        A low-friction subscription for the first segment
+      </h2>
+      <p className="anim-fade-up delay-2 text-sm mb-5" style={{ color: "#6b7280" }}>
+        Start affordable, prove the time saved, then expand with the value we create.
+      </p>
+      <div className="grid grid-cols-[0.9fr_1.3fr] gap-5 flex-1">
+        <div
+          className="anim-fade-up delay-3 rounded-2xl p-6 flex flex-col justify-center"
+          style={{ background: "#f0fdf4", border: "1.5px solid #86efac" }}
+        >
+          <p className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
+            Pricing hypothesis
+          </p>
+          <p className="text-5xl font-bold mt-3" style={{ color: "#15803d" }}>£14.99<span className="text-lg">/mo</span></p>
+          <p className="text-base font-semibold mt-2" style={{ color: "#111827" }}>One mosque · one site</p>
+          <p className="text-sm leading-relaxed mt-4" style={{ color: "#4b5563" }}>
+            At a £12/hour time benchmark, the subscription breaks even after roughly 1 hour 15 minutes saved each month.
+          </p>
+          <Tag color="green">No percentage of donations</Tag>
+        </div>
+        <div className="grid grid-rows-3 gap-3">
+          {[
+            {
+              title: "Buyer",
+              body: "Trustees, treasurers and finance committees responsible for restricted funds and reporting",
+            },
+            {
+              title: "First segment",
+              body: "UK mosques with volunteer finance teams, multiple donation types and recurring reconciliation work",
+            },
+            {
+              title: "Route to market",
+              body: "Warm introductions, design partners, mosque networks and trusted charity/accounting advisers",
+            },
+          ].map((item, index) => (
+            <div
+              key={item.title}
+              className={`anim-fade-up delay-${index + 4} rounded-xl p-4 flex items-start gap-4`}
+              style={{ background: "#f9fafb", border: "1.5px solid #e5e7eb" }}
+            >
+              <span className="text-sm font-bold w-24 shrink-0" style={{ color: "#15803d" }}>{item.title}</span>
+              <span className="text-sm leading-relaxed" style={{ color: "#374151" }}>{item.body}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p className="anim-fade-up delay-6 text-xs mt-4" style={{ color: "#9ca3af" }}>
+        Pilot metric: hours returned to volunteers, fewer correction cycles and faster restricted-funds reporting.
+      </p>
+    </SlideShell>
+  );
+}
+
+function AcceleratorSlide() {
+  return (
+    <SlideShell slideNum={14} label="Why an Accelerator" accent>
+      <div className="anim-fade-up mb-2">
+        <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
+          Why Now
+        </span>
+      </div>
+      <h2 className="anim-fade-up delay-1 text-4xl font-bold mb-3" style={{ color: "#111827" }}>
+        We know the problem. We want to{ " " }
+        <span style={{ color: "#16a34a" }}>learn faster.</span>
+      </h2>
+      <p className="anim-fade-up delay-2 text-sm mb-6" style={{ color: "#6b7280" }}>
+        The right accelerator would help us turn early conversations into a focused, measurable pilot.
+      </p>
+      <div className="grid grid-cols-2 gap-4 flex-1">
+        {[
+          ["Peer feedback", "Be surrounded by like-minded founders who challenge our assumptions quickly"],
+          ["Experienced builders", "Learn from entrepreneurs who have solved product, distribution and fundraising problems"],
+          ["Useful connections", "Reach mosque, charity and ecosystem partners who can become design partners"],
+          ["Focused execution", "Use an 8–12 week cadence to validate pricing, measure hours saved and prepare a pilot rollout"],
+        ].map(([title, body], index) => (
+          <div
+            key={title}
+            className={`anim-fade-up delay-${index + 3} rounded-2xl p-6`}
+            style={{ background: "#f0fdf4", border: "1.5px solid #bbf7d0" }}
+          >
+            <p className="text-lg font-bold" style={{ color: "#15803d" }}>{title}</p>
+            <p className="text-sm leading-relaxed mt-3" style={{ color: "#374151" }}>{body}</p>
+          </div>
+        ))}
+      </div>
+      <div className="anim-fade-up delay-6 rounded-xl px-5 py-3 mt-4 text-center" style={{ background: "#ecfdf5", border: "1.5px solid #86efac" }}>
+        <p className="text-sm font-semibold" style={{ color: "#15803d" }}>
+          Our goal: leave with validated demand, a design-partner pilot and a repeatable route into the market.
+        </p>
+      </div>
+    </SlideShell>
+  );
+}
+
+function Slide15() {
+  const phaseStyles = [
+    { background: "#f7fbf8", border: "#d7eee1", phase: "#5b8a6a", title: "#3f6650", desc: "#607366" },
+    { background: "#f1faf5", border: "#c9ead7", phase: "#3f8262", title: "#2f6a50", desc: "#567066" },
+    { background: "#eaf8f1", border: "#b8e2cf", phase: "#2e7d5b", title: "#236346", desc: "#4e6960" },
+    { background: "#eaf8f7", border: "#a9ded3", phase: "#19746b", title: "#155c56", desc: "#496762" },
+    { background: "#edf7f8", border: "#b7dfe1", phase: "#246d77", title: "#215862", desc: "#4b6268" },
+    { background: "#f0f4fa", border: "#c7d5e6", phase: "#466985", title: "#39566f", desc: "#53646f" },
+    { background: "linear-gradient(90deg, #edf8f4 0%, #e9f4f7 52%, #edf0fb 100%)", border: "#9fbccc", phase: "#3c5f8a", title: "#345477", desc: "#53646f" },
+  ];
+
+  return (
+    <SlideShell slideNum={13} label="Vision" accent>
       <div className="anim-fade-up mb-2">
         <span className="text-xs font-semibold tracking-[0.15em] uppercase" style={{ color: "#16a34a" }}>
           The Vision
@@ -941,34 +1275,39 @@ function Slide15() {
             title: "Intelligence Layer",
             desc: "Forecasting, budgeting, cash-flow insights — help organisations make better decisions",
           },
+          {
+            phase: "Phase 7",
+            title: "Agentic Layer",
+            desc: "AI treasury co-pilot — answer questions, create fund pots and launch donation campaigns",
+          },
         ].map((row, i) => (
           <div
             key={row.phase}
             className={`anim-fade-up delay-${i + 1} flex items-center gap-5 rounded-xl px-6`}
             style={{
-              background: row.current ? "#f0fdf4" : "#f9fafb",
-              border: `1.5px solid ${row.current ? "#bbf7d0" : "#e5e7eb"}`,
+              background: phaseStyles[i].background,
+              border: `1.5px solid ${phaseStyles[i].border}`,
               flex: 1,
             }}
           >
             <span
               className="text-xs font-bold tracking-wide w-16 shrink-0 uppercase"
-              style={{ color: row.current ? "#16a34a" : "#9ca3af" }}
+              style={{ color: phaseStyles[i].phase }}
             >
               {row.phase}
             </span>
             <span
               className="text-base font-bold w-44 shrink-0"
-              style={{ color: row.current ? "#111827" : "#374151" }}
+              style={{ color: phaseStyles[i].title }}
             >
               {row.title}
               {row.current && (
-                <span className="ml-2 text-xs px-1.5 py-0.5 rounded font-semibold" style={{ background: "#16a34a", color: "#fff" }}>
+                <span className="ml-2 text-xs px-1.5 py-0.5 rounded font-semibold" style={{ background: "#166534", color: "#fff" }}>
                   Now
                 </span>
               )}
             </span>
-            <span className="text-sm" style={{ color: "#6b7280" }}>
+            <span className="text-sm" style={{ color: phaseStyles[i].desc }}>
               {row.desc}
             </span>
           </div>
@@ -989,9 +1328,20 @@ function Slide15() {
 /* ─── Slide Registry ────────────────────────────────── */
 
 const SLIDES = [
-  Slide1, Slide2, Slide3, Slide4, Slide5,
-  Slide6, Slide7, Slide8, Slide9, Slide10,
-  Slide11, Slide12, Slide13, Slide14, Slide15,
+  Slide1,
+  TeamSlide,
+  Slide2,
+  Slide3,
+  EvidenceSlide,
+  ValidationSlide,
+  Slide8,
+  Slide9,
+  Slide11,
+  Slide12,
+  Slide13,
+  BusinessGtmSlide,
+  Slide15,
+  AcceleratorSlide,
 ];
 
 /* ─── Main Component ────────────────────────────────── */
@@ -1006,6 +1356,7 @@ export default function NoorSlides({ initialSlide = 0 }: { initialSlide?: number
     setDirection(dir);
     setKey((k) => k + 1);
     setCurrent(index);
+    window.history.replaceState(null, "", `/info?slide=${index + 1}`);
   };
 
   const next = () => goTo(current + 1, "forward");
@@ -1040,8 +1391,8 @@ export default function NoorSlides({ initialSlide = 0 }: { initialSlide?: number
 
       {/* Left arrow */}
       {current > 0 && (
-        <a
-          href={`/info?slide=${current}`}
+        <button
+          type="button"
           onClick={prev}
           className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full transition-all"
           style={{
@@ -1057,13 +1408,13 @@ export default function NoorSlides({ initialSlide = 0 }: { initialSlide?: number
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M11 4L6 9L11 14" stroke="#15803d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-        </a>
+        </button>
       )}
 
       {/* Right arrow */}
       {current < TOTAL_SLIDES - 1 && (
-        <a
-          href={`/info?slide=${current + 2}`}
+        <button
+          type="button"
           onClick={next}
           className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full transition-all"
           style={{
@@ -1079,7 +1430,7 @@ export default function NoorSlides({ initialSlide = 0 }: { initialSlide?: number
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M7 4L12 9L7 14" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-        </a>
+        </button>
       )}
 
       {/* Dot indicators — bottom overlay */}
@@ -1088,8 +1439,8 @@ export default function NoorSlides({ initialSlide = 0 }: { initialSlide?: number
         style={{ zIndex: 50 }}
       >
         {SLIDES.map((_, i) => (
-          <a
-            href={`/info?slide=${i + 1}`}
+          <button
+            type="button"
             key={i}
             onClick={() => goTo(i, i > current ? "forward" : "backward")}
             className="transition-all rounded-full"
@@ -1102,6 +1453,7 @@ export default function NoorSlides({ initialSlide = 0 }: { initialSlide?: number
               padding: 0,
             }}
             aria-label={`Go to slide ${i + 1}`}
+            aria-current={i === current ? "page" : undefined}
           />
         ))}
       </div>

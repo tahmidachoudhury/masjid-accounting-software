@@ -1,3 +1,8 @@
+"use client"
+
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import {
   Table,
   TableBody,
@@ -7,8 +12,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { FundBadge } from "@/components/FundBadge"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select"
 import { formatPence } from "@/lib/currency"
-import type { Donation, Cause } from "@/lib/api"
+import { api, type Donation, type Cause, type DonationType } from "@/lib/api"
+import { CLASSIFIABLE_TYPES, FUND_CONFIG } from "@/lib/fundConfig"
 
 interface DonationTableProps {
   donations: Donation[]
@@ -17,8 +29,28 @@ interface DonationTableProps {
 }
 
 export function DonationTable({ donations, causes, limit }: DonationTableProps) {
+  const router = useRouter()
+  const [localDonations, setLocalDonations] = useState(donations)
+  const [classifyingId, setClassifyingId] = useState<string | null>(null)
   const causeMap = Object.fromEntries(causes.map((c) => [c.id, c.name]))
-  const rows = limit ? donations.slice(0, limit) : donations
+  const causeById = Object.fromEntries(causes.map((c) => [c.id, c]))
+  const rows = limit ? localDonations.slice(0, limit) : localDonations
+
+  async function classifyDonation(donation: Donation, donationType: DonationType) {
+    setClassifyingId(donation.id)
+    try {
+      const updated = await api.reclassifyDonation(donation.id, donationType)
+      setLocalDonations((current) =>
+        current.map((item) => (item.id === updated.id ? updated : item))
+      )
+      toast.success(`Donation classified as ${FUND_CONFIG[donationType].label}`)
+      router.refresh()
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not classify donation")
+    } finally {
+      setClassifyingId(null)
+    }
+  }
 
   if (rows.length === 0) {
     return (
@@ -63,7 +95,43 @@ export function DonationTable({ donations, causes, limit }: DonationTableProps) 
                 {formatPence(d.amountPence)}
               </TableCell>
               <TableCell>
-                <FundBadge type={d.donationType} />
+                {d.donationType === "uncategorised" ? (
+                  <Select
+                    value={d.donationType}
+                    onValueChange={(value) => {
+                      if (value && value !== "uncategorised") {
+                        void classifyDonation(d, value as DonationType)
+                      }
+                    }}
+                    disabled={classifyingId === d.id}
+                  >
+                    <SelectTrigger
+                      aria-label={`Classify ${formatPence(d.amountPence)} donation`}
+                      className="h-auto border-0 bg-transparent p-0 shadow-none hover:bg-transparent focus-visible:ring-2"
+                    >
+                      <FundBadge type="uncategorised" />
+                    </SelectTrigger>
+                    <SelectContent align="start" className="min-w-48">
+                      {(d.causeId && causeById[d.causeId]?.allowedTypes.length
+                        ? causeById[d.causeId].allowedTypes.filter(
+                            (type) => type !== "uncategorised"
+                          )
+                        : CLASSIFIABLE_TYPES
+                      ).map((type) => (
+                        <SelectItem key={type} value={type}>
+                          <span
+                            className="size-2 rounded-full"
+                            style={{ backgroundColor: FUND_CONFIG[type].chartColor }}
+                            aria-hidden
+                          />
+                          {FUND_CONFIG[type].label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <FundBadge type={d.donationType} />
+                )}
               </TableCell>
               <TableCell className="text-sm text-muted-foreground">
                 {d.causeId ? causeMap[d.causeId] ?? "—" : "—"}

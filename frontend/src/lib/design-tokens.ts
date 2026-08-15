@@ -1,6 +1,6 @@
-/** Default theme — dark mode CMS palette */
+/** Default theme — light, trust-led treasury palette */
 export const theme = {
-  mode: "dark" as const,
+  mode: "light" as const,
   surfaces: ["background", "card", "elevated", "popover"] as const,
 } as const
 

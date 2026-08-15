@@ -22,8 +22,8 @@ export default function ImportPage() {
         <p className="font-medium mb-2">Expected CSV format</p>
         <pre className="text-xs text-muted-foreground overflow-x-auto font-mono">
           date,reference,amount_gbp,donation_type{"\n"}
-          2024-03-01,Monthly zakat,100.00,zakat{"\n"}
-          2024-03-02,Anonymous transfer,75.00,{"\n"}
+          2026-08-11,Standing order - Donor 1842,450.00,zakat{"\n"}
+          2026-08-09,Cash deposit - counter 2,340.00,{"\n"}
         </pre>
         <p className="mt-2 text-xs text-muted-foreground">
           Valid types: zakat, sadaqah, lillah, zakat_al_fitr, fidya, kaffarah, waqf, general.
