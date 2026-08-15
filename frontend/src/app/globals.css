@@ -197,6 +197,7 @@
 .delay-4 { animation-delay: 320ms; }
 .delay-5 { animation-delay: 400ms; }
 .delay-6 { animation-delay: 480ms; }
+.delay-7 { animation-delay: 560ms; }
 
 /* Reduced-motion baseline */
 @media (prefers-reduced-motion: reduce) {

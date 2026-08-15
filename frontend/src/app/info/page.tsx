@@ -8,7 +8,7 @@ export default async function InfoPage({
   const { slide } = await searchParams
   const requestedSlide = Number.parseInt(slide ?? "1", 10)
   const initialSlide = Number.isFinite(requestedSlide)
-    ? Math.min(Math.max(requestedSlide - 1, 0), 15)
+    ? Math.min(Math.max(requestedSlide - 1, 0), 13)
     : 0
 
   return (
