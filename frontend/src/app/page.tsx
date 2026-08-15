@@ -150,7 +150,7 @@ export default async function DashboardPage() {
         </section>
       )}
 
-      <section>
+      <section id="recent-donations" className="scroll-mt-24">
         <div className="flex items-baseline justify-between">
           <h2 className="text-lg font-semibold text-foreground">Recent Donations</h2>
           <span className="text-xs text-muted-foreground">Last 20</span>

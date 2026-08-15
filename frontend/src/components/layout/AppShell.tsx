@@ -9,7 +9,6 @@ import {
   PlusCircle,
   Upload,
   QrCode,
-  Palette,
   Presentation,
   CheckSquare,
   BarChart3,
@@ -22,7 +21,6 @@ const navItems = [
   { href: "/import", label: "Import Statement", icon: Upload },
   { href: "/qr-code", label: "QR Code", icon: QrCode },
   { href: "/info", label: "Our Story", icon: Presentation },
-  { href: "/styleguide", label: "Style Guide", icon: Palette },
 ]
 
 const adminItems = [
@@ -37,7 +35,6 @@ const breadcrumbMap: Record<string, string> = {
   "/import": "Import Statement",
   "/qr-code": "QR Code",
   "/info": "Our Story",
-  "/styleguide": "Style Guide",
 }
 
 interface AppShellProps {

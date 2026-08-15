@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 interface UncategorisedBannerProps {
   count: number
 }
@@ -23,12 +21,12 @@ export function UncategorisedBanner({ count }: UncategorisedBannerProps) {
             Restricted funds (zakat, waqf, etc.) must be correctly labelled before any
             disbursement.
           </p>
-          <Link
-            href="/import"
+          <a
+            href="#recent-donations"
             className="mt-2 inline-block text-xs font-semibold text-warning underline underline-offset-2 hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-warning rounded"
           >
             Classify now →
-          </Link>
+          </a>
         </div>
       </div>
     </div>

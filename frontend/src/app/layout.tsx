@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Roboto, Roboto_Mono } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
@@ -22,14 +22,18 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   title: "Noor Treasury",
   description: "Donation accounting and treasury management",
-  colorScheme: "dark",
+}
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#F8FBF9",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className={`dark ${roboto.variable} ${robotoMono.variable} h-full antialiased`}
+      className={`${roboto.variable} ${robotoMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full bg-background text-foreground">

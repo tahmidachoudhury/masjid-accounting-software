@@ -215,7 +215,6 @@ function Slide1() {
           </p>
         </div>
         <div className="anim-fade-up delay-5 flex gap-3 mt-2">
-          <Tag color="green">Hackathon 2025</Tag>
           <Tag color="gray">Muslim Community Finance</Tag>
         </div>
       </div>
