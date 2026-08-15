@@ -273,7 +273,7 @@ function TeamSlide() {
         <span style={{ color: "#16a34a" }}>production</span>
       </h2>
       <p className="anim-fade-up delay-2 text-base mb-6" style={{ color: "#6b7280" }}>
-        Imperial-trained engineers spanning financial systems, scaled software and dependable infrastructure.
+        A team spanning financial systems, scaled software and dependable infrastructure.
       </p>
 
       <div className="grid grid-cols-[1.2fr_1fr_1fr] gap-4 flex-1">
